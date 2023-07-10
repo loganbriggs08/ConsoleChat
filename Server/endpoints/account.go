@@ -33,5 +33,4 @@ func AccountCreate(w http.ResponseWriter, r *http.Request) {
 
 	newUserJson, _ := json.Marshal(newUser)
 	w.Write(newUserJson)
-
 }
