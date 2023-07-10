@@ -12,7 +12,8 @@ func main() {
 	result := database.Create()
 
 	if result == true {
-		http.HandleFunc("/api/heartbeat/send", endpoints.HeartbeatSend)
+		// http.HandleFunc("/api/heartbeat/send", endpoints.HeartbeatSend)
+		http.HandleFunc("/api/account/new", endpoints.AccountCreate)
 
 		err := http.ListenAndServe(":8080", nil)
 
