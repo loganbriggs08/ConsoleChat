@@ -14,6 +14,7 @@ func Create() bool {
 	} else {
 		tablesToCreate := `
 		CREATE TABLE IF NOT EXISTS active_heartbeats(authorization VARCHAR(255), last_heartbeat VARCHAR(255));
+		CREATE TABLE IF NOT EXISTS accounts(snowflake BIGINT UNSIGNED, authorization VARCHAR(255))
 		`
 
 		_, err := database.Exec(tablesToCreate)
