@@ -2,7 +2,9 @@ package endpoints
 
 import (
 	"encoding/json"
+	"math/rand"
 	"net/http"
+	"time"
 )
 
 type accountCreated struct {
@@ -11,8 +13,15 @@ type accountCreated struct {
 }
 
 func AccountCreate(w http.ResponseWriter, r *http.Request) {
+	rand.Seed(time.Now().UnixNano())
+
+	min := int64(10000000000000000)
+	max := int64(99999999999999999)
+
+	SnowFlake := rand.Int63n(max-min+1) + min
+
 	newUser := accountCreated{
-		SnowFlake:     12345677889343,
+		SnowFlake:     uint64(SnowFlake),
 		Authorization: "asdjakjdkjas",
 	}
 
@@ -20,4 +29,5 @@ func AccountCreate(w http.ResponseWriter, r *http.Request) {
 
 	newUserJson, _ := json.Marshal(newUser)
 	w.Write(newUserJson)
+
 }
