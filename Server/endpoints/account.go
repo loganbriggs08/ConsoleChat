@@ -10,7 +10,7 @@ type accountCreated struct {
 	Authorization string `json:"authorization"`
 }
 
-func UserCreate(w http.ResponseWriter, r *http.Request) {
+func AccountCreate(w http.ResponseWriter, r *http.Request) {
 	newUser := accountCreated{
 		SnowFlake:     12345677889343,
 		Authorization: "asdjakjdkjas",
