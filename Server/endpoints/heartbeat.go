@@ -29,6 +29,6 @@ func HeartbeatSend(w http.ResponseWriter, r *http.Request) {
 			pterm.Fatal.WithFatal(true).Println("Failed to write the data to the connection.")
 		}
 	} else {
-
+		
 	}
 }
