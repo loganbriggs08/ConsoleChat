@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"encoding/json"
 	"net/http"
 
 	"github.com/pterm/pterm"
@@ -12,7 +12,23 @@ type apiError struct {
 }
 
 func heartbeatSend(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "EndPoint Reached")
+	authorizationHeader := r.Header.Get("Authorization")
+
+	if authorizationHeader == "" {
+		err := apiError{
+			ErrorCode: 65535,
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(65535)
+
+		jsonError, _ := json.Marshal(err)
+		_, writeError := w.Write(jsonError)
+
+		if writeError != nil {
+			pterm.Fatal.WithFatal(true).Println("Failed to write the data to the connection.")
+		}
+	}
 }
 
 func main() {
