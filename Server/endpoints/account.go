@@ -15,10 +15,6 @@ type accountCreated struct {
 	Authorization string `json:"authorization"`
 }
 
-func generate_authentication(unique_id uint64) string {
-	return authentication.Encode(strconv.Itoa(int(unique_id))) + "." + authentication.Encode(strconv.Itoa(int(authentication.Since_Epoch()))) + "." + authentication.Encode(authentication.String(25))
-}
-
 func AccountCreate(w http.ResponseWriter, r *http.Request) {
 	rand.Seed(time.Now().UnixNano())
 
@@ -26,7 +22,7 @@ func AccountCreate(w http.ResponseWriter, r *http.Request) {
 	max := int64(99999999999999999)
 
 	SnowFlake := rand.Int63n(max-min+1) + min
-	Authorization := generate_authentication(uint64(SnowFlake))
+	Authorization := authentication.Encode(strconv.Itoa(int(SnowFlake))) + "." + authentication.Encode(strconv.Itoa(int(authentication.Since_Epoch()))) + "." + authentication.Encode(authentication.String(25))
 
 	newUser := accountCreated{
 		SnowFlake:     uint64(SnowFlake),
