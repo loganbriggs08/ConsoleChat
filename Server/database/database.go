@@ -6,7 +6,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func Create() bool {
+func CreateTables() bool {
 	database, err := sql.Open("sqlite3", "database.db")
 
 	if err != nil {
