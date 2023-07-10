@@ -3,16 +3,23 @@ package main
 import (
 	"net/http"
 
+	"github.com/NotKatsu/ConsoleChat/database"
 	"github.com/NotKatsu/ConsoleChat/endpoints"
 	"github.com/pterm/pterm"
 )
 
 func main() {
-	http.HandleFunc("/api/heartbeat/send", endpoints.HeartbeatSend)
+	result := database.Create()
 
-	err := http.ListenAndServe(":8080", nil)
+	if result == true {
+		http.HandleFunc("/api/heartbeat/send", endpoints.HeartbeatSend)
 
-	if err != nil {
-		pterm.Fatal.WithFatal(true).Println(err)
+		err := http.ListenAndServe(":8080", nil)
+
+		if err != nil {
+			pterm.Fatal.WithFatal(true).Println(err)
+		}
+	} else {
+		pterm.Fatal.WithFatal(true).Println("An error occured while creating the database tables.")
 	}
 }
