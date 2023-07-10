@@ -8,7 +8,7 @@ import (
 )
 
 type apiError struct {
-	ErrorCode uint16 `json:"error"`
+	ErrorCode uint16 `json:"error_code"`
 }
 
 func heartbeatSend(w http.ResponseWriter, r *http.Request) {
@@ -20,7 +20,7 @@ func heartbeatSend(w http.ResponseWriter, r *http.Request) {
 		}
 
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(65535)
+		w.WriteHeader(http.StatusUnauthorized)
 
 		jsonError, _ := json.Marshal(err)
 		_, writeError := w.Write(jsonError)
@@ -28,6 +28,8 @@ func heartbeatSend(w http.ResponseWriter, r *http.Request) {
 		if writeError != nil {
 			pterm.Fatal.WithFatal(true).Println("Failed to write the data to the connection.")
 		}
+	} else {
+		
 	}
 }
 
