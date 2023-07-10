@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	result := database.Create()
+	result := database.CreateTables()
 
 	if result == true {
 		// http.HandleFunc("/api/heartbeat/send", endpoints.HeartbeatSend)
