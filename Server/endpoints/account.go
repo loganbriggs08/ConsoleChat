@@ -25,7 +25,7 @@ func AccountCreate(w http.ResponseWriter, r *http.Request) {
 	SnowFlake := rand.Int63n(max-min+1) + min
 	Authorization := authentication.Encode(strconv.Itoa(int(SnowFlake))) + "." + authentication.Encode(strconv.Itoa(int(authentication.Since_Epoch()))) + "." + authentication.Encode(authentication.String(25))
 
-	databaseResponse := database.AddHeartBeat(Authorization, uint64(SnowFlake))
+	databaseResponse := database.AddHeartBeat(Authorization)
 
 	if databaseResponse == true {
 		newUser := accountCreated{
