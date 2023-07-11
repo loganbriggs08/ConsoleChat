@@ -27,7 +27,7 @@ func CreateTables() bool {
 	}
 }
 
-func AddHeartBeat(authorization string, snowflake uint64) bool {
+func AddHeartBeat(authorization string) bool {
 	database, err := sql.Open("sqlite3", "database.db")
 
 	if err != nil {
