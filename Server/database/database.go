@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"time"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -17,6 +18,22 @@ func CreateTables() bool {
 		`
 
 		_, err := database.Exec(tablesToCreate)
+
+		if err != nil {
+			return false
+		} else {
+			return true
+		}
+	}
+}
+
+func AddHeartBeat(authorization string, snowflake uint64) bool {
+	database, err := sql.Open("sqlite3", "database.db")
+
+	if err != nil {
+		return false
+	} else {
+		_, err := database.Exec("INSERT INTO active_heartbeats VALUES(?, ?, ?)", authorization, snowflake, time.Now())
 
 		if err != nil {
 			return false
