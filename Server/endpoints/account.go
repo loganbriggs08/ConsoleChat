@@ -12,7 +12,6 @@ import (
 )
 
 type accountCreated struct {
-	SnowFlake     uint64 `json:"snowflake"`
 	Authorization string `json:"authorization"`
 }
 
@@ -29,7 +28,6 @@ func AccountCreate(w http.ResponseWriter, r *http.Request) {
 
 	if databaseResponse == true {
 		newUser := accountCreated{
-			SnowFlake:     uint64(SnowFlake),
 			Authorization: Authorization,
 		}
 
