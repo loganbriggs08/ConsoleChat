@@ -14,7 +14,7 @@ func CreateTables() bool {
 		return false
 	} else {
 		tablesToCreate := `
-		CREATE TABLE IF NOT EXISTS active_heartbeats(authorization VARCHAR(255), snowflake BIGINT UNSIGNED, last_heartbeat VARCHAR(255));
+		CREATE TABLE IF NOT EXISTS active_heartbeats(authorization VARCHAR(255), last_heartbeat VARCHAR(255));
 		`
 
 		_, err := database.Exec(tablesToCreate)
@@ -33,7 +33,7 @@ func AddHeartBeat(authorization string, snowflake uint64) bool {
 	if err != nil {
 		return false
 	} else {
-		_, err := database.Exec("INSERT INTO active_heartbeats VALUES(?, ?, ?)", authorization, snowflake, time.Now())
+		_, err := database.Exec("INSERT INTO active_heartbeats VALUES(?, ?)", authorization, time.Now())
 
 		if err != nil {
 			return false

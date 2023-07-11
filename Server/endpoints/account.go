@@ -47,14 +47,4 @@ func AccountCreate(w http.ResponseWriter, r *http.Request) {
 		errorJson, _ := json.Marshal(apiError)
 		w.Write(errorJson)
 	}
-
-	newUser := accountCreated{
-		SnowFlake:     uint64(SnowFlake),
-		Authorization: Authorization,
-	}
-
-	w.WriteHeader(http.StatusOK)
-
-	newUserJson, _ := json.Marshal(newUser)
-	w.Write(newUserJson)
 }
